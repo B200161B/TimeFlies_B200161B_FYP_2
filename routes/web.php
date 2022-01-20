@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReminderController;
@@ -36,8 +37,23 @@ Route::resource('/event', EventController::class);
 Route::resource('/reminder', ReminderController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('task/{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
+//Route::resource('/company',CompanyController::class);
 
 
+Route::group(['prefix'=>'Company'],function (){
+    Route::get('home', function () {
+        return view('Company.home');
+    })->name('company.home');
+
+    Route::get('register',[CompanyController::class,'registerPage'])->name('company.register.page');
+    Route::post('register',[CompanyController::class,'registerStore'])->name('company.register.store');
+    Route::get('login',[CompanyController::class,'loginPage'])->name('company.login.page');
+    Route::post('login',[CompanyController::class,'loginCheck'])->name('company.login.check');
+
+//    Route::group(['middleware'=>'auth'],function (){
+//
+//    });
+});
 
 Route::get('/analytics', function () {
     return view('analytics');

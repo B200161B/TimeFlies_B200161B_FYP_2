@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaskHistoriesTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTaskHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('task_histories', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("tasks_id");
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->text('note');
+            $table->string('company_name');
+            $table->mediumText('address')->nullable();
+            $table->integer('phone_number')->nullable();
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTaskHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_histories');
+        Schema::dropIfExists('companies');
     }
 }

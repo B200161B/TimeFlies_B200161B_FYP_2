@@ -29,6 +29,17 @@
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
                 @endif
+                @if (Route::has('company.register.page'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('company.register.page') }}">{{ __('Company Register') }}</a>
+                    </li>
+                @endif
+                @if (Route::has('company.login.page'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('company.login.page') }}">{{ __('Company Login') }}</a>
+                    </li>
+                @endif
+
             </ul>
         </div>
     </div>

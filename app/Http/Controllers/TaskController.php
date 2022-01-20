@@ -42,7 +42,6 @@ class TaskController extends Controller
     public function create()
     {
         //
-
         $project = Projects::all();
         return view('Task.create')->with('projects', $project);
     }
