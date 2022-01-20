@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\CompanyStaff;
+use App\Models\Workspaces;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,16 +15,18 @@ use Illuminate\Support\Str;
 class CompanyController extends Controller
 {
     use RegistersUsers;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function index()
     {
-        //
-
+        $workspaces = Workspaces::all();
+//        admin@test3.com
+//        LIjJHOZk
+        return view('Company.home',[
+        'workspaces'=>$workspaces
+        ]);
     }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -31,29 +34,32 @@ class CompanyController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:company']
         ]);
     }
+
     public function registerPage()
     {
         return view('Company/auth/register');
     }
-    public function registerStore(Request $request){
-        $companyName =$request->input('company_name');
+
+    public function registerStore(Request $request)
+    {
+        $companyName = $request->input('company_name');
         $company = Company::create([
-            'company_name'=>$companyName,
-            'email'=>$request->input('email')
+            'company_name' => $companyName,
+            'email' => $request->input('email')
         ]);
 
 
         $password = Str::random(8);
 
         $companyStaff = CompanyStaff::create([
-            'name' => $companyName.'_admin',
-            'email' => 'admin@'.$companyName.'.com',
+            'name' => $companyName . '_admin',
+            'email' => 'admin@' . $companyName . '.com',
             'password' => Hash::make($password),
-            'companies_id'=>$company->id
+            'companies_id' => $company->id
         ]);
         return redirect()->route('company.login.page')->with([
-            'email'=>$companyStaff->email,
-            'password'=>$password,
+            'email' => $companyStaff->email,
+            'password' => $password,
         ]);
     }
 
@@ -66,11 +72,11 @@ class CompanyController extends Controller
     {
         $email = $request->input('email');
         $password = $request->input('password');
-        if(Auth::guard('companyStaff')->attempt($request->only('email','password'),$request->filled('remember'))){
+        if (Auth::guard('companyStaff')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
             //Authentication passed...
             return redirect()
                 ->intended(route('company.home'))
-                ->with('status','You are Logged in as Admin!');
+                ->with('status', 'You are Logged in as Admin!');
         }
 //        $loginStaff = CompanyStaff::query()
 //            ->where('email',$email)
@@ -81,6 +87,15 @@ class CompanyController extends Controller
 //
 //        }
 
+
+    }
+
+    public function logout ()
+    {
+        Auth::guard('companyStaff')->logout();
+        return redirect()
+            ->route('company.login.page')
+            ->with('status','Admin has been logged out!');
 
     }
 
@@ -97,7 +112,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -109,7 +124,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -120,7 +135,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -131,8 +146,8 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -143,7 +158,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

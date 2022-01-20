@@ -5,13 +5,13 @@
         <div class="m-5">
             <div class="row col-10 ">
                 <h2>Workspace</h2>
-                <button class="btn btn-secondary"><a href="workspace/create">Create</a></button>
+                <button class="btn btn-secondary"><a href="{{route('workspace.create')}}">Create</a></button>
             </div>
 
             <div class="row col-10">
                 @foreach($workspaces as $workspace)
                     <h3>{{$workspace->workspace_name}}</h3>
-                    <button class="btn btn-secondary"><a href="workspace/{{$workspace->id}}/edit">Edit</a></button>
+                    <button class="btn btn-secondary"><a href="{{route('workspace.edit',$workspace->id)}}">Edit</a></button>
                     <p>  </p>
                     <button class="btn btn-secondary"><a href="workspace/{{$workspace->id}}/addUser">Add Employee</a></button>
                     <p>  </p>

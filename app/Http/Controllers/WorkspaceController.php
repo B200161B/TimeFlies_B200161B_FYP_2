@@ -25,7 +25,7 @@ class WorkspaceController extends Controller
         $projects = Projects::all();
         $tasks = Tasks::all();
         $events = Events::all();
-        return view('home',[
+        return view('Company.home',[
             'workspaces'=>$workspaces,
             'projects'=>$projects,
             'tasks'=>$tasks,

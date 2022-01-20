@@ -61,18 +61,31 @@
             <div class="profile-details">
                 <img src="{{asset('images/profile.jpg')}}" alt="profileImg">
                 <div class="name_job">
-                    <div class="name">{{Auth::user()->username}}</div>
+                    @if(auth()->guard('companyStaff')->check())
+{{--                        <div class="name">{{Auth::id()}}</div>--}}
+
+                    @else
+                        <div class="name">{{Auth::user()->username}}</div>
+
+                    @endif
                     <div class="job">Web designer</div>
                 </div>
             </div>
-            <i class='bx bx-log-out' id="log_out" href="{{route('logout')}}" onclick="event.preventDefault();
+            <i class='bx bx-log-out' id="log_out" href="#" onclick="event.preventDefault();
              document.getElementById('logout-form').submit();"></i>
         </li>
     </ul>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @if(auth()->guard('companyStaff')->check())
+    <form id="logout-form" action="{{ route('company.logout') }}" method="POST" class="d-none">
         @csrf
     </form>
+
+    @else
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    @endif
 </div>
 
 

@@ -26,15 +26,7 @@
 </head>
 <body>
 
-@guest
-    <div id="app">
-        @include('layouts.header-guest')
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-@else
+@auth('companyStaff')
 
     <div id="app">
 
@@ -44,7 +36,17 @@
 
     </div>
 
-@endguest
+@else
+
+    <div id="app">
+        @include('layouts.header-guest')
+
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+
+@endauth
 
 
 

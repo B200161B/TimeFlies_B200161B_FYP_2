@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-5 m-5">
-    <form action="/workspace" method="POST">
+    <form action="{{ route('workspace.store') }}" method="POST">
         @csrf
 
         <div class="modal-body">

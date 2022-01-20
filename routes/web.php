@@ -25,9 +25,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::resource('/workspace', WorkspaceController::class);
-Route::get('workspace/{workspaces_id}/addUser', [WorkspaceController::class, 'addUser']);
-Route::get('workspace/{workspaces_id}/storeUser', [WorkspaceController::class, 'storeUser']);
+
 Route::resource('/project', ProjectController::class);
 Route::get('project/{projects_id}/addProject', [ProjectController::class, 'addProject']);
 Route::get('project/{projects_id}/storeProject', [ProjectController::class, 'storeProject']);
@@ -42,15 +40,16 @@ Route::post('task/{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
 
 
 Route::group(['prefix'=>'Company'],function (){
-    Route::get('home', function () {
-        return view('Company.home');
-    })->name('company.home');
+    Route::get('home', [CompanyController::class,'index'])->name('company.home');
 
     Route::get('register',[CompanyController::class,'registerPage'])->name('company.register.page');
     Route::post('register',[CompanyController::class,'registerStore'])->name('company.register.store');
     Route::get('login',[CompanyController::class,'loginPage'])->name('company.login.page');
     Route::post('login',[CompanyController::class,'loginCheck'])->name('company.login.check');
-
+    Route::post('logout',[CompanyController::class,'logout'])->name('company.logout');
+    Route::resource('/workspace', WorkspaceController::class);
+    Route::get('workspace/{workspaces_id}/addUser', [WorkspaceController::class, 'addUser']);
+    Route::get('workspace/{workspaces_id}/storeUser', [WorkspaceController::class, 'storeUser']);
 //    Route::group(['middleware'=>'auth'],function (){
 //
 //    });
