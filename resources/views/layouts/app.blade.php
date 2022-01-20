@@ -25,12 +25,12 @@
 </head>
 <body>
 
-@if(auth()->guard('companyStaff'))
+@if(auth()->guard('companyStaff')->check())
     <div id="app">
         @include('layouts.sidebar')
         @yield('content')
     </div>
-@elseif(auth()->guard('web'))
+@elseif(auth()->guard('web')->check())
     <div id="app">
         @include('layouts.sidebar')
         @yield('content')

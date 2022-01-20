@@ -305,16 +305,16 @@
         <div class="row">
             <div class="col-8">
                 <div class="text">Task</div>
-                <button class="btn btnCheckIn modal-button" type="button" href="#myModal1">Check In</button>
+                <button class="btn btnCheckIn modal-button" type="button" href="#checkInModal">Check In</button>
                 <button class="btn btnCreate modal-button" type="button" href="#myModal1">Create</button>
                 <button class="btn btnRemove" type="button" id="btnRemove">Remove</button>
 
                 <!-- The Modal -->
-                <div id="checkInModal" class="modal">
+                <div id="checkInModal" class="modal ">
                     <!-- Modal content -->
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Check In Task Modal</h5>
+                            <h5 class="modal-title">Check In <b><i>In Progress </i></b>Task</h5>
 
                         </div>
                         <form method="POST" action="{{ route('task.store')}}">
@@ -322,34 +322,12 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label class="col  col-form-label">Task Name:</label>
-                                    <input type="text" class="form-control" name="task_name" id="taskName">
-                                    <label class="col  col-form-label">Due Date:</label>
-                                    <input type="date" name="due_date" id="due_date" class="form-control">
-                                    <label class="col  col-form-label">Details:</label>
-                                    <textarea name="details" id="details" class="form-control"></textarea>
-                                    <label class="col-form-label">Status:</label>
-                                    <select class="form-select" name="status">
-                                        <option value="Plan">Plan</option>
-                                        <option value="Doing">Doing</option>
-                                        <option value="Review">Review</option>
-                                        <option value="Done">Done</option>
-                                    </select>
-                                    <label class="col  col-form-label">Attachment Files:</label>
-                                    <input type="file" name="attachmentFiles" id="attachmentFiles" class="form-control">
-                                    <label for="col  col-form-label">Is it under any projects?</label>
-                                    <input class="form-control" list="browsers" name="projects_id" id="project"
-                                           autocomplete="off">
-                                    <datalist id="browsers">
-                                        @foreach($projects as $project)
-                                            <option value="{{$project->id}}">
-                                        @endforeach
-                                    </datalist>
+
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
                                 <button type="button" class="btn btn-secondary" id="close" onclick="myClose()">Close
                                 </button>
                             </div>
@@ -377,7 +355,7 @@
                                     <label class="col  col-form-label">Details:</label>
                                     <textarea name="details" id="details" class="form-control"></textarea>
                                     <label class="col-form-label">Status:</label>
-                                    <select class="form-select" name="status">
+                                    <select class="form-control" name="status">
                                         <option value="Plan">Plan</option>
                                         <option value="Doing">Doing</option>
                                         <option value="Review">Review</option>
@@ -386,13 +364,12 @@
                                     <label class="col  col-form-label">Attachment Files:</label>
                                     <input type="file" name="attachmentFiles" id="attachmentFiles" class="form-control">
                                     <label for="col  col-form-label">Is it under any projects?</label>
-                                    <input class="form-control" list="browsers" name="projects_id" id="project"
-                                           autocomplete="off">
-                                    <datalist id="browsers">
+                                    <select class="form-control"  name="projects_id" id="project" autocomplete="off">
+                                        <option value="0">No</option>
                                         @foreach($projects as $project)
-                                            <option value="{{$project->id}}">
+                                            <option value="{{$project->id}}">{{$project->project_name }}</option>
                                         @endforeach
-                                    </datalist>
+                                    </select>
                                 </div>
 
                             </div>

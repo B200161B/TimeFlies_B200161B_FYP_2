@@ -65,7 +65,7 @@
 {{--                        <div class="name">{{Auth::id()}}</div>--}}
 
                     @else
-                        <div class="name">{{Auth::user()->username}}</div>
+{{--                        <div class="name">{{Auth::user()->username}}</div>--}}
 
                     @endif
                     <div class="job">Web designer</div>

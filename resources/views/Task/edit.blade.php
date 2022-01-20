@@ -25,12 +25,12 @@
                 <label class="col  col-form-label">Attachment Files:</label>
                 <input type="file" name="attachmentFiles" id="attachmentFiles" class="form-control" value="{{$task->attachmentFiles}}">
                 <label for="col  col-form-label">Is it under any projects?</label>
-                <input class="form-control" list="browsers" name="projects_id" id="project" autocomplete="off" value="{{$task->projects_id}}">
-                <datalist id="browsers">
+                <select class="form-control"  name="projects_id" id="project" autocomplete="off">
                     @foreach($projects as $project)
-                        <option value="{{$project->id}}">
+                        <option value="{{$project->id}}">{{$project->project_name }}</option>
                     @endforeach
-                </datalist>
+                </select>
+
 
             </div>
 

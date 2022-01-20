@@ -24,11 +24,12 @@
                 <input type="file" name="attachmentFiles" id="attachmentFiles" class="form-control">
                 <label for="col  col-form-label">Is it under any projects?</label>
                 <input class="form-control" list="browsers" name="projects_id" id="project" autocomplete="off">
-                <datalist id="browsers">
+                <select>
                     @foreach($projects as $project)
-                        <option value="{{$project->id}}">
+                        <option value="{{$project->id}}">{{$project->project_name }}</option>
                     @endforeach
-                </datalist>
+                </select>
+
 
             </div>
 
