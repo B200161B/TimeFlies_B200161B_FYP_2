@@ -26,27 +26,21 @@
 </head>
 <body>
 
-@auth('companyStaff')
-
+@auth()
     <div id="app">
-
         @include('layouts.sidebar')
-
         @yield('content')
-
     </div>
-
-@else
+@endauth
+@guest
 
     <div id="app">
         @include('layouts.header-guest')
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
-
-@endauth
+@endguest
 
 
 
