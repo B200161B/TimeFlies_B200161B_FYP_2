@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WorkspaceController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,7 @@ Route::get('task/{tasks_id}/addPriority', [TaskController::class, 'addPriority']
 Route::get('task/{tasks_id}/storePriority', [TaskController::class, 'storePriority']);
 Route::resource('/event', EventController::class);
 Route::resource('/reminder', ReminderController::class);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('task/{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
 //Route::resource('/company',CompanyController::class);
 

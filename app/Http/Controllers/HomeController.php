@@ -31,6 +31,7 @@ class HomeController extends Controller
         $workspaces =Workspaces::all();
         $projects = Projects::all();
         $tasks = Tasks::all();
+
         $events = Events::all();
         $reminders = Reminders::all();
         return view('home',[
