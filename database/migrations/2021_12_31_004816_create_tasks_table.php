@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->date('due_date');
             $table->mediumText('details');
             $table->integer('users_id')->unsigned();
-            $table->integer('projects_id')->unsigned();
+            $table->integer('projects_id')->unsigned()->nullable();
             $table->enum('status',['Plan','Doing','Review','Done'])->default('Plan');
             $table->string('attachmentFiles')->nullable();
             $table->foreign('users_id')
