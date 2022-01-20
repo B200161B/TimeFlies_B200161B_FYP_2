@@ -38,6 +38,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('task/{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
 //Route::resource('/company',CompanyController::class);
 
+//admin@test1.com
+//y06rYF3R
 
 Route::group(['prefix'=>'Company'],function (){
     Route::get('home', [CompanyController::class,'index'])->name('company.home');

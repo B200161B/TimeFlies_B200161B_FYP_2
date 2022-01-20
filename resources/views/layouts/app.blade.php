@@ -22,26 +22,27 @@
     @stack('css')
 
 
-
 </head>
 <body>
 
-@auth()
+@if(auth()->guard('companyStaff'))
     <div id="app">
         @include('layouts.sidebar')
         @yield('content')
     </div>
-@endauth
-@guest
-
+@elseif(auth()->guard('web'))
+    <div id="app">
+        @include('layouts.sidebar')
+        @yield('content')
+    </div>
+@else
     <div id="app">
         @include('layouts.header-guest')
         <main class="py-4">
             @yield('content')
         </main>
     </div>
-@endguest
-
+@endif
 
 
 
