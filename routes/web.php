@@ -36,16 +36,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //admin@test1.com
 //y06rYF3R
 
+Route::resource('project', ProjectController::class);
 Route::group(['prefix' => 'project'], function () {
-    Route::resource('/', ProjectController::class);
+
     Route::get('{projects_id}/addProject', [ProjectController::class, 'addProject']);
     Route::get('{projects_id}/storeProject', [ProjectController::class, 'storeProject']);
 });
 
 
-
+Route::resource('task', TaskController::class);
 Route::group(['prefix' => 'task'], function () {
-    Route::resource('/', TaskController::class);
+
     Route::get('{tasks_id}/addPriority', [TaskController::class, 'addPriority']);
     Route::get('{tasks_id}/storePriority', [TaskController::class, 'storePriority']);
     Route::post('{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
