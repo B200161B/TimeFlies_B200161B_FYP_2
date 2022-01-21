@@ -49,7 +49,7 @@ Route::group(['prefix' => 'task'], function () {
 
     Route::get('{tasks_id}/addPriority', [TaskController::class, 'addPriority']);
     Route::get('{tasks_id}/storePriority', [TaskController::class, 'storePriority']);
-    Route::post('{tasks_id}/checkIn', [TaskController::class, 'checkIn']);
+    Route::post('checkIn', [TaskController::class, 'checkIn'])->name('task.check-in');
 
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Events;
 use App\Models\Projects;
+use App\Models\TaskHistory;
 use App\Models\TaskPriorities;
 use App\Models\Tasks;
 use App\Models\User;
@@ -99,26 +100,25 @@ class TaskController extends Controller
 
     }
 
-    public function checkIn($id)
+    public function checkIn(Request $request)
     {
-        $tasks_id = DB::table('tasks')->where('id', $id)->value('id');
-        $check_in = Tasks::create([
-            'users_id' => Auth::id(),
-            'tasks_id' => $task_id,
 
+        $task_id = $request->input('task_id');
+        $note = $request->input('note');
+
+
+        $history = TaskHistory::create([
+            'tasks_id' => $task_id,
+            'start' => now(),
+            'note' => $note
         ]);
 
+
+        return redirect()->route('home');
 
     }
 
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
