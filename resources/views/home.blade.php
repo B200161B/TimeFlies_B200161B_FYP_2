@@ -40,6 +40,19 @@
             border-radius: 5px;
         }
 
+        .btnTimer {
+            background: #272c4a;
+            color: whitesmoke;
+            /*margin-left: 60%;*/
+            right: 40%;
+            position: absolute;
+            display: inline-block;
+        }
+
+        .btnTimer:hover {
+            color: #fcffa6;
+        }
+
         .btnCheckIn {
             background: #272c4a;
             color: whitesmoke;
@@ -305,6 +318,9 @@
         <div class="row">
             <div class="col-8">
                 <div class="text">Task</div>
+
+                <button class="btn btnTimer modal-button values" type="button" href="#">00:00:00</button>
+
                 <button class="btn btnCheckIn modal-button" type="button" href="#checkInModal">Check In</button>
                 <button class="btn btnCreate modal-button" type="button" href="#myModal1">Create</button>
                 <button class="btn btnRemove" type="button" id="btnRemove">Remove</button>
@@ -317,7 +333,6 @@
                             <h5 class="modal-title">Check In <b><i>In Progress </i></b>Task</h5>
 
 
-
                         </div>
                         <form method="POST" action="{{ route('task.check-in')}}">
                             @csrf
@@ -325,7 +340,8 @@
 
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Note</label>
-                                    <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" name="note" id="exampleFormControlTextarea1"
+                                              rows="3"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -688,6 +704,7 @@
 
 @push('js')
     <script>
+
         // Get the button that opens the modal
         let btn = document.querySelectorAll("button.modal-button");
 
@@ -752,5 +769,21 @@
                 }
             }
         }
+    </script>
+    <script>
+        // var timerInstance = new easytimer.Timer();
+
+
+        let period = moment("{{$doingTaskHistory[0]->start}}").fromNow();
+
+        let timerInstance = new easytimer.Timer();
+        // timerInstance.start();
+
+        timerInstance.start({precision: 'seconds', startValues: {minutes: period}});
+
+        timerInstance.addEventListener('secondsUpdated', function (e) {
+            $('.values').html(timerInstance.getTimeValues().toString());
+        });
+
     </script>
 @endpush

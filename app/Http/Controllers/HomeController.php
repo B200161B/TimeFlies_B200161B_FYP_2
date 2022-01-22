@@ -49,21 +49,17 @@ class HomeController extends Controller
                 $query->where('end', null);
             })
             ->where('users_id', $userId)
-            ->where('status', 'Doing')->get();
+            ->where('status', 'Doing')->first();
 
-
-        //try whereHasAndWith
-
-        return response()->json($doingTask);
-        dd($doingTask->jsonSerialize());
-
+        $doingTaskHistory = $doingTask->history;
 
         return view('home', [
             'workspaces' => $workspaces,
             'projects' => $projects,
             'tasks' => $tasks,
             'events' => $events,
-            'reminders' => $reminders
+            'reminders' => $reminders,
+            'doingTaskHistory'=>$doingTaskHistory,
         ]);
     }
 }
