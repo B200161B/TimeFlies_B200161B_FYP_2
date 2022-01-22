@@ -86,13 +86,23 @@ class TaskController extends Controller
 
     }
 
+    public function addUsers($id)
+    {
+        $task = Tasks::find($id);
+        $users = User::all();
+        return view('Task.addUsers')->with('task',$task)->with('users',$users);
+    }
     public function storeUsers(Request $request,$id)
     {
         $task_user = TaskUser::create([
             'tasks_id'=>$id,
             'users_id'=>$request->input('users_id')
         ]);
-        return redirect()->route('company.home');
+        if (Auth::guard('companyStaff')->check()){
+            return redirect()->route('company.home');
+        }
+
+        return redirect('/home');
     }
 
     public function addPriority($id)
@@ -125,7 +135,7 @@ class TaskController extends Controller
     {
         //
         $tasks = Tasks::query()
-            ->with('createdBy')
+            ->with(['createdBy','taskUser.addedUsers'])
             ->find($id);
 
         return view('Task.show')->with('tasks',$tasks);

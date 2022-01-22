@@ -27,13 +27,17 @@ class   Tasks extends Model
 
     public function createdBy() : \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class,'id','users_id');
     }
     public function taskPriorities()
     {
         return $this->hasOne(TaskPriorities::class);
     }
 
+    public function taskUser() :HasMany
+    {
+        return $this->hasMany(TaskUser::class);
+    }
     public static function latestHistory($taskId): Builder
     {
         return TaskHistory::query()

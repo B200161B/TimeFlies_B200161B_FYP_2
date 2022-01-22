@@ -53,6 +53,7 @@
                                 <div class="box-content">
                                     <h2>{{$task->task_name}}</h2>
                                     <button class="btn btn-secondary"><a href="{{route('project.editProjectWorkspace',$task->projects_id)}}">Change Workspace</a></button>
+                                    <button class="btn btn-secondary"><a href="{{route('task.add-users',$task->id)}}">Add Users</a></button>
                                     <br>
                                     Due Date:{{$task->due_date}}
                                 </div>

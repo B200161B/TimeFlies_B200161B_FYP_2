@@ -58,7 +58,7 @@
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form> <br>
-                                    In Charge By:{{$workspace->in_charged_by}}
+                                    In Charge By:{{$workspace->inChargePerson->name}}
                                 </div>
                             </div>
                     </div>

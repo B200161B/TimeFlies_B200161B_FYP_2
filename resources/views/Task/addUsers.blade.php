@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('task.',)}}" method="POST">
+    <section class="home-section">
+    <form action="{{route('task.store-users',$task->id)}}" method="POST">
         @csrf
-        @method('GET')
         <div class="modal-body">
 
             <div class="form-group">
-                <label class="col  col-form-label" name="workspace_name">Workspace Name: {{$workspace->workspace_name}}</label>
+                <label class="col  col-form-label" name="task_name">Task Name: {{$task->task_name}}</label>
                 <label for="col  col-form-label">Employee ID:</label>
                 {{--                <input list="browsers" name="users_id" id="users" autocomplete="off">--}}
                 {{--                <datalist id="browsers">--}}
@@ -28,8 +28,9 @@
 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name="form_add_user_to_space">Add</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </div>
 
     </form>
+    </section>
 @endsection

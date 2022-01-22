@@ -65,6 +65,8 @@ Route::group(['prefix' => 'task'], function () {
     Route::get('{tasks_id}/storePriority', [TaskController::class, 'storePriority']);
     Route::post('check-in', [TaskController::class, 'checkIn'])->name('task.check-in');
     Route::get('check-out/{task_history_id}',[TaskController::class,'checkOut'])->name('task.check-out');
+    Route::get('{tasks_id}/addUsers',[TaskController::class,'addUsers'])->name('task.add-users');
+    Route::post('{tasks_id}/storeUsers',[TaskController::class,'storeUsers'])->name('task.store-users');
 
 });
 
