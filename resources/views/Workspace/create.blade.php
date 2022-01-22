@@ -11,7 +11,13 @@
                 <label class="col  col-form-label">Workspace Name</label>
                 <input type="text" class="form-control" name="workspace_name">
                 <label class="col  col-form-label">In Charged By</label>
-                <input type="text" class="form-control" name="in_charged_by">
+
+                <input list="browsers" name="in_charged_by" id="users" autocomplete="off">
+                <datalist id="browsers">
+                    @foreach($users as $user)
+                        <option value="{{$user->id}}">{{$user->name}}
+                    @endforeach
+                </datalist>
 
 
 

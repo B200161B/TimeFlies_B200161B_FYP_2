@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="pl-10">
-    <form action="{{route('workspace.storeUser',$workspace->id)}}" method="POST">
+    <form action="{{route('task.',)}}" method="POST">
         @csrf
         @method('GET')
         <div class="modal-body">
@@ -10,12 +9,12 @@
             <div class="form-group">
                 <label class="col  col-form-label" name="workspace_name">Workspace Name: {{$workspace->workspace_name}}</label>
                 <label for="col  col-form-label">Employee ID:</label>
-{{--                <input list="browsers" name="users_id" id="users" autocomplete="off">--}}
-{{--                <datalist id="browsers">--}}
-{{--                    @foreach($users as $user)--}}
-{{--                        <option value="{{$user->id}}">{{$user->name }}</option>--}}
-{{--                    @endforeach--}}
-{{--                </datalist>--}}
+                {{--                <input list="browsers" name="users_id" id="users" autocomplete="off">--}}
+                {{--                <datalist id="browsers">--}}
+                {{--                    @foreach($users as $user)--}}
+                {{--                        <option value="{{$user->id}}">{{$user->name }}</option>--}}
+                {{--                    @endforeach--}}
+                {{--                </datalist>--}}
                 <select multiple data-select>
                     <input type="text" list="datalist" name="users_id" id="users" autocomplete="off">
                     <datalist id="datalist">
@@ -33,5 +32,4 @@
         </div>
 
     </form>
-    </div>
 @endsection

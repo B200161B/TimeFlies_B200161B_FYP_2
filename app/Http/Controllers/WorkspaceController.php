@@ -6,6 +6,7 @@ use App\Models\Events;
 use App\Models\Projects;
 use App\Models\Tasks;
 use App\Models\User;
+use App\Models\WorkspaceProject;
 use App\Models\Workspaces;
 use App\Models\WorkspaceUsers;
 use Illuminate\Http\Request;
@@ -25,11 +26,13 @@ class WorkspaceController extends Controller
         $projects = Projects::all();
         $tasks = Tasks::all();
         $events = Events::all();
+        $users = User::all();
         return view('Company.home',[
             'workspaces'=>$workspaces,
             'projects'=>$projects,
             'tasks'=>$tasks,
             'events'=>$events,
+            'users'=>$users,
         ]);
     }
 
@@ -41,7 +44,8 @@ class WorkspaceController extends Controller
     public function create()
     {
         //
-        return view('Workspace.create');
+        $users = User::all();
+        return view('Workspace.create')->with('users',$users);
     }
     public function addUser($id)
     {
@@ -57,7 +61,7 @@ class WorkspaceController extends Controller
                 'workspaces_id'=>$workspace_id,
                 'users_id'=>$request->input('users_id')
             ]);
-       return redirect('/workspace');
+       return redirect()->route('company.home');
     }
     /**
      * Store a newly created resource in storage.
@@ -77,18 +81,41 @@ class WorkspaceController extends Controller
         }
 //        $workspace_id =DB::table('workspaces')->where('workspace_name', $request->get('workspace_name'))->value('id');
 
-        return redirect('/home');
+        return redirect()->route('company.home');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+
+
+
+        $workspace = Workspaces::query()
+            ->with(['projects.projectInfo','inChargePerson'])
+            ->find($id);
+
+//        dd($workspace->projects);
+//        return response()->json($workspace);
+//        $project_info = $workspace->projectInfo;
+//        return response()->json($workspace);
+
+//            $workspace_project = DB::table('workspace_projects')
+//                ->join('workspaces','workspace_projects.workspaces_id','=','workspaces.id')
+//                ->join('projects','workspace_projects.projects_id','=','projects.id')
+//                ->join('users','workspaces.in_charged_by','=','users.id')
+//                ->select('workspaces.*','projects.*','projects.id as project_id','users.name')
+//                ->where('workspace_projects.workspaces_id',$id)
+//                ->get();
+
+//        $workspaces_projects = Workspaces::find($id)->projects;
+
+        return view('Company.viewProject',compact('workspace'));
+
     }
 
     /**
@@ -100,11 +127,12 @@ class WorkspaceController extends Controller
     public function edit($id)
     {
         //
+        $users = User::all();
         $workspace = Workspaces::find($id)
             ->where('id', $id)
             ->first();
 
-        return view('Workspace.edit')->with('workspace',$workspace);
+        return view('Workspace.edit')->with('workspace',$workspace)->with('users',$users);
     }
 
     /**
@@ -123,7 +151,7 @@ class WorkspaceController extends Controller
             'in_charged_by'=>$request->input('in_charged_by')
         ]);
 
-        return redirect('/workspace');
+        return redirect()->route('company.home');
     }
 
     /**
@@ -137,6 +165,6 @@ class WorkspaceController extends Controller
         //
         $workspace = Workspaces::find($id)->first();
         $workspace->delete();
-        return redirect('/home');
+        return redirect()->route('company.home');
     }
 }

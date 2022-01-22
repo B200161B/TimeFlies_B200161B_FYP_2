@@ -20,8 +20,8 @@ class CompanyController extends Controller
     public function index()
     {
         $workspaces = Workspaces::all();
-//        admin@test3.com
-//        LIjJHOZk
+//        admin@Test1.com
+    //        evVy1tmc
         return view('Company.home',[
         'workspaces'=>$workspaces
         ]);

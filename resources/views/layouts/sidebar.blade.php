@@ -18,7 +18,12 @@
             <span class="tooltip">Analytics</span>
         </li>
         <li>
-            <a href="#">
+           @auth('companyStaff')
+                <a href="{{url('Company/home')}}">
+           @endauth
+                    @auth()
+                        <a href="{{url('/home')}}">
+                    @endauth
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
             </a>

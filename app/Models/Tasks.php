@@ -19,6 +19,11 @@ class Tasks extends Model
         'status',
         'attachmentFiles',
     ];
+
+    public function createdBy() : \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(User::class,'id');
+    }
     public function taskPriorities()
     {
         return $this->hasOne(TaskPriorities::class);
