@@ -7,6 +7,7 @@ use App\Models\Projects;
 use App\Models\TaskHistory;
 use App\Models\TaskPriorities;
 use App\Models\Tasks;
+use App\Models\TaskUser;
 use App\Models\User;
 use App\Models\Workspaces;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -85,6 +86,15 @@ class TaskController extends Controller
 
     }
 
+    public function storeUsers(Request $request,$id)
+    {
+        $task_user = TaskUser::create([
+            'tasks_id'=>$id,
+            'users_id'=>$request->input('users_id')
+        ]);
+        return redirect()->route('company.home');
+    }
+
     public function addPriority($id)
     {
         $task = Tasks::find($id);
@@ -109,11 +119,16 @@ class TaskController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function show($id)
     {
         //
+        $tasks = Tasks::query()
+            ->with('createdBy')
+            ->find($id);
+
+        return view('Task.show')->with('tasks',$tasks);
 
     }
 

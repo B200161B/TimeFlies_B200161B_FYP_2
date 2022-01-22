@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-5 m-5">
-    <form action="/workspace/{{$workspace->id}}" method="POST">
+    <form action="{{route('workspace.update',$workspace->id)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="modal-body">
@@ -11,7 +11,12 @@
                 <label class="col  col-form-label">Workspace Name</label>
                 <input type="text" class="form-control" name="workspace_name" value="{{$workspace->workspace_name}}">
                 <label class="col  col-form-label">In Charged By</label>
-                <input type="text" class="form-control" name="in_charged_by" value="{{$workspace->in_charged_by}}">
+                <input list="browsers" name="in_charged_by" id="users" autocomplete="off"  value="{{$workspace->in_charged_by}}">
+                <datalist id="browsers">
+                    @foreach($users as $user)
+                        <option value="{{$user->id}}">
+                    @endforeach
+                </datalist>
             </div>
 
         </div>

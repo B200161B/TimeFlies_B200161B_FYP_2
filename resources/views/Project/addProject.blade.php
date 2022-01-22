@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-5 m-5">
-    <form action="/project/{{$project->id}}/storeProject" method="POST">
+    <form action="{{route('project.storeProject',$project->id)}}" method="POST">
         @csrf
         @method('GET')
         <div class="modal-body">

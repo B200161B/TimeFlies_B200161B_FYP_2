@@ -18,7 +18,12 @@
             <span class="tooltip">Analytics</span>
         </li>
         <li>
-            <a href="{{route('home')}}">
+           @auth('companyStaff')
+                <a href="{{url('Company/home')}}">
+           @endauth
+                    @auth()
+                        <a href="{{url('/home')}}">
+                    @endauth
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
             </a>
@@ -52,7 +57,7 @@
             <a href="#">
                 <i class='bx bx-cog'></i>@php
 
-                    @endphp
+                @endphp
                 <span class="links_name">Setting</span>
             </a>
             <span class="tooltip">Setting</span>
@@ -62,10 +67,10 @@
                 <img src="{{asset('images/profile.jpg')}}" alt="profileImg">
                 <div class="name_job">
                     @if(auth()->guard('companyStaff')->check())
-                        {{--                        <div class="name">{{Auth::id()}}</div>--}}
+{{--                        <div class="name">{{Auth::id()}}</div>--}}
 
                     @else
-                        {{--                        <div class="name">{{Auth::user()->username}}</div>--}}
+{{--                        <div class="name">{{Auth::user()->username}}</div>--}}
 
                     @endif
                     <div class="job">Web designer</div>

@@ -254,7 +254,9 @@
                             <a href="{{ route('project.edit',[$project->id]) }}">
                                 <div class="box">
                                     <div class="box-content">
-                                        {{$project->project_name}}<br>
+                                        {{$project->project_name}}
+                                        <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">Add Workspace</a></button>
+                                        <br>
                                         Due Date:{{$project->due_date}}
                                     </div>
                                 </div>
