@@ -1,317 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    <style>
-        #plus {
-            margin: -1% 0 0;
-        }
 
-        .fa {
-            font-size: 20px;
-            color: whitesmoke;
-
-        }
-
-        .fa:hover {
-            color: brown;
-        }
-
-        #fa-remove {
-            display: none;
-        }
-
-        .home-section {
-            padding: 1%;
-        }
-
-        span {
-            white-space: pre;
-
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #222;
-            background: #f5f5f5;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .btnTimer {
-            background: #272c4a;
-            color: whitesmoke;
-            /*margin-left: 60%;*/
-            right: 40%;
-            position: absolute;
-            display: inline-block;
-        }
-
-        .btnTimer:hover {
-            color: #fcffa6;
-        }
-
-        .btnCheckIn {
-            background: #272c4a;
-            color: whitesmoke;
-            /*margin-left: 60%;*/
-            right: 28%;
-            position: absolute;
-            display: inline-block;
-        }
-
-        .btnCheckIn:hover {
-            color: #fcffa6;
-        }
-
-        .btnCreate {
-            background: #272c4a;
-            color: whitesmoke;
-            margin-left: 60%;
-            right: 16%;
-            position: absolute;
-            display: inline-block;
-        }
-
-        .btnCreate:hover {
-            color: #fcffa6;
-        }
-
-        .btnRemove {
-            background: #272c4a;
-            color: whitesmoke;
-            right: 4%;
-            position: absolute;
-        }
-
-        .btnRemove:hover {
-            color: #fcffa6;
-        }
-
-
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0); /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position: relative;
-            background-color: #fefefe;
-            margin: auto;
-            padding: 0;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s
-        }
-
-        /* Add Animation */
-        @-webkit-keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0
-            }
-            to {
-                top: 0;
-                opacity: 1
-            }
-        }
-
-        @keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0
-            }
-            to {
-                top: 0;
-                opacity: 1
-            }
-        }
-
-        .modal-header {
-            /*padding: 2px 16px;*/
-            background-color: #272c4a;
-            color: white;
-        }
-
-        .modal-button, #btnRemove {
-            margin-top: 18px;
-        }
-
-        /* The Close Button */
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-footer {
-            /*padding: 2px 16px;*/
-            background-color: #272c4a;
-            color: white;
-        }
-
-        #allTasks {
-            margin-left: 5%;
-        }
-
-        html {
-            overflow-y: scroll;
-        }
-
-        .members {
-            display: flex;
-            margin-top: 14px;
-        }
-
-        .members img {
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            margin-right: 4px;
-            object-fit: cover;
-        }
-
-        /*.right-bar {*/
-        /*    width: 320px;*/
-        /*    border-left: 1px solid #e3e7f7;*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*}*/
-
-        .right-bar .header {
-            font-size: 20px;
-            color: gray;
-            margin-left: 30px;
-        }
-
-        .top-part {
-            padding: 30px;
-            align-self: flex-end;
-        }
-
-        .top-part img {
-            width: 14px;
-            height: 14px;
-            color: black;
-            margin-right: 14px;
-        }
-
-        .top-part .count {
-            font-size: 12px;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            background-color: #623ce8;
-            color: #fff;
-            justify-content: center;
-        }
-
-        .right-content {
-            padding: 10px 40px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .task-box {
-            position: relative;
-            border-radius: 12px;
-            width: 100%;
-            margin: 20px 0;
-            padding: 16px;
-            cursor: pointer;
-            box-shadow: 2px 2px 4px 0px rgba(235, 235, 235, 1);
-        }
-
-        .task-box:hover {
-            transform: scale(1.02);
-        }
-
-        .time {
-            margin-bottom: 6px;
-            opacity: 0.4;
-            font-size: 10px;
-        }
-
-        .task-name {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.6;
-        }
-
-        .yellow {
-            background-color: lightgoldenrodyellow;
-        }
-
-        .blue {
-            background-color: #e2f0fb;
-        }
-
-        .red {
-            background-color: darksalmon;
-        }
-
-        .green {
-            background-color: palegreen;
-        }
-
-        .more-button {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background-color: #8e92a4;
-            box-shadow: 0 -4px 0 0 #8e92a4, 0 4px 0 0 #8e92a4;
-            opacity: 0.4;
-            right: 20px;
-            top: 30px;
-            cursor: pointer;
-        }
-
-        /*  */
-        .box {
-            width: 100%;
-            height: 100px;
-            background-color: #272c4a;
-            margin-left: 10px;
-            margin-bottom: 2%;
-            margin-right: 3%;
-            padding: 10px;
-            color: whitesmoke;
-            border-radius: .30rem;
-            text-align: center;
-            box-sizing: content-box;
-        }
-
-        .box-content {
-            text-align: left;
-            font-size: small;
-        }
-
-    </style>
 @endpush
 @section('content')
     <section class="home-section">
@@ -319,9 +8,15 @@
             <div class="col-8">
                 <div class="text">Task</div>
 
-                <button class="btn btnTimer modal-button values" type="button" href="#">00:00:00</button>
+                @if(isset($doingTaskHistory))
+                    <button class="btn btnTimer modal-button values" type="button" href="#">00:00:00:00</button>
+                    <a class="btn btnCheckIn modal-button" type="button"
+                       href="{{route('task.check-out',$doingTaskHistory->id)}}">Check Out</a>
+                @else
+                    <button class="btn btnCheckIn modal-button" type="button" href="#checkInModal">Check In</button>
+                @endif
 
-                <button class="btn btnCheckIn modal-button" type="button" href="#checkInModal">Check In</button>
+
                 <button class="btn btnCreate modal-button" type="button" href="#myModal1">Create</button>
                 <button class="btn btnRemove" type="button" id="btnRemove">Remove</button>
 
@@ -397,7 +92,7 @@
                             <h5 class="modal-title">Adding Task</h5>
 
                         </div>
-                        <form method="POST" action="{{ route('task.store')}}">
+                        <form method="POST" action="{{ route('task.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
 
@@ -419,7 +114,7 @@
                                     <input type="file" name="attachmentFiles" id="attachmentFiles" class="form-control">
                                     <label for="col  col-form-label">Is it under any projects?</label>
                                     <select class="form-control" name="projects_id" id="project" autocomplete="off">
-                                        <option value="0">No</option>
+                                        <option value="">No</option>
                                         @foreach($projects as $project)
                                             <option value="{{$project->id}}">{{$project->project_name }}</option>
                                         @endforeach
@@ -463,7 +158,19 @@
                             @foreach($tasks as $task)
                                 @if($task->status == 'Doing')
                                     <div class="box-content">
-                                        <a href="{{ route('task.edit',[$task->id]) }}">{{$task->task_name}}</a>
+
+                                        @isset($doingTaskHistory)
+                                            @if($task->id == $doingTaskHistory->tasks_id)
+                                                <a href="{{ route('task.edit',[$task->id]) }}">{{$task->task_name}}
+                                                    (Current Check In)</a>
+                                            @else
+                                                <a href="{{ route('task.edit',[$task->id]) }}">{{$task->task_name}}</a>
+                                            @endif
+                                        @else
+                                            <a href="{{ route('task.edit',[$task->id]) }}">{{$task->task_name}}</a>
+                                        @endisset
+
+
                                         <i class="fa fa-remove" id="fa-remove"></i>
                                     </div>
                                 @endif
@@ -704,7 +411,6 @@
 
 @push('js')
     <script>
-
         // Get the button that opens the modal
         let btn = document.querySelectorAll("button.modal-button");
 
@@ -770,20 +476,23 @@
             }
         }
     </script>
-    <script>
-        // var timerInstance = new easytimer.Timer();
 
+    @if(isset($doingTaskHistory))
+        <script>
 
-        let period = moment("{{$doingTaskHistory[0]->start}}").fromNow();
+            let m1 = moment('{{$doingTaskHistory->start}}');
+            let m2 = moment();
 
-        let timerInstance = new easytimer.Timer();
-        // timerInstance.start();
+            let periodInMinute = m2.diff(m1, 'minute');
 
-        timerInstance.start({precision: 'seconds', startValues: {minutes: period}});
+            let timerInstance = new easytimer.Timer();
 
-        timerInstance.addEventListener('secondsUpdated', function (e) {
-            $('.values').html(timerInstance.getTimeValues().toString());
-        });
+            timerInstance.start({startValues: {minutes: periodInMinute}});
+            timerInstance.addEventListener('secondsUpdated', function (e) {
+                $('.values').html(timerInstance.getTimeValues().toString(['days', 'hours', 'minutes', 'seconds']));
+            });
 
-    </script>
+        </script>
+
+    @endif
 @endpush

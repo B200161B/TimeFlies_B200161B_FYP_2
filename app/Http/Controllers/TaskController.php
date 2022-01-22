@@ -9,9 +9,12 @@ use App\Models\TaskPriorities;
 use App\Models\Tasks;
 use App\Models\User;
 use App\Models\Workspaces;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -51,11 +54,10 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
         $task = Tasks::create([
             'task_name' => $request->input('task_name'),
             'due_date' => $request->input('due_date'),
@@ -63,9 +65,24 @@ class TaskController extends Controller
             'users_id' => Auth::id(),
             'projects_id' => $request->input('projects_id'),
             'status' => $request->input('status'),
-            'attachmentFiles' => $request->input('attachmentFiles')
         ]);
-        return redirect('/home');
+
+        if ($request->hasFile('attachmentFiles')) {
+            $image = $request->file('attachmentFiles');
+            $folderName = 'files/' . Auth::id();
+            $uploadPath = public_path() . '/' . $folderName;
+            $logoFileName = $image->getClientOriginalName();
+            $image->move($uploadPath, $logoFileName);
+            $path = $folderName;
+            $task->attachmentFiles = $path;
+        }
+
+        if ($task->save()){
+            return redirect('/home');
+
+        }
+
+
     }
 
     public function addPriority($id)
@@ -100,7 +117,7 @@ class TaskController extends Controller
 
     }
 
-    public function checkIn(Request $request)
+    public function checkIn(Request $request): RedirectResponse
     {
 
         $task_id = $request->input('task_id');
@@ -116,6 +133,27 @@ class TaskController extends Controller
 
         return redirect()->route('home');
 
+    }
+
+    public function checkOut($taskHistoryId): RedirectResponse
+    {
+
+        try {
+            $taskHistory = TaskHistory::query()->findOrFail($taskHistoryId);
+            $taskHistory->update([
+               'end'=>now(),
+            ]);
+
+            if ($taskHistory->save()){
+                return redirect()->route('home');
+
+            }
+
+            return redirect()->route('home')->with('error', 'Problem occurs, try later');
+        } catch
+        (ModelNotFoundException $exception) {
+            return redirect()->route('home')->with('error', 'Problem occurs, try later');
+        }
     }
 
 
@@ -136,7 +174,7 @@ class TaskController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
     {

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FileManagementController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WorktimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,13 +45,22 @@ Route::group(['prefix' => 'project'], function () {
     Route::get('{projects_id}/storeProject', [ProjectController::class, 'storeProject']);
 });
 
+Route::group(['prefix' => 'work-time'],function (){
+    Route::get('/',[WorktimeController::class,'index'])->name('worktime.index');
+
+});
+
+Route::group(['prefix' => 'file-management'],function (){
+    Route::get('/',[FileManagementController::class,'index'])->name('file-management.index');
+});
 
 Route::resource('task', TaskController::class);
 Route::group(['prefix' => 'task'], function () {
 
     Route::get('{tasks_id}/addPriority', [TaskController::class, 'addPriority']);
     Route::get('{tasks_id}/storePriority', [TaskController::class, 'storePriority']);
-    Route::post('checkIn', [TaskController::class, 'checkIn'])->name('task.check-in');
+    Route::post('check-in', [TaskController::class, 'checkIn'])->name('task.check-in');
+    Route::get('check-out/{task_history_id}',[TaskController::class,'checkOut'])->name('task.check-out');
 
 });
 

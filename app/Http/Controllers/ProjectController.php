@@ -120,6 +120,8 @@ class ProjectController extends Controller
             'project_goal'=>$request->input('project_goal'),
             'due_date'=>$request->input('due_date')
         ]);
+
+
         return redirect('/home');
     }
 

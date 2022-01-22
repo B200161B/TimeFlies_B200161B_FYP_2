@@ -18,7 +18,7 @@
             <span class="tooltip">Analytics</span>
         </li>
         <li>
-            <a href="#">
+            <a href="{{route('home')}}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
             </a>
@@ -32,7 +32,7 @@
             <span class="tooltip">Users</span>
         </li>
         <li>
-            <a href="#">
+            <a href="{{route('worktime.index')}}">
                 <i class='bx bx-chat'></i>
                 <span class="links_name">Work Time</span>
             </a>
@@ -41,7 +41,7 @@
 
 
         <li>
-            <a href="#">
+            <a href="{{route('file-management.index')}}">
                 <i class='bx bx-folder'></i>
                 <span class="links_name">File Manager</span>
             </a>
@@ -52,7 +52,7 @@
             <a href="#">
                 <i class='bx bx-cog'></i>@php
 
-                @endphp
+                    @endphp
                 <span class="links_name">Setting</span>
             </a>
             <span class="tooltip">Setting</span>
@@ -62,10 +62,10 @@
                 <img src="{{asset('images/profile.jpg')}}" alt="profileImg">
                 <div class="name_job">
                     @if(auth()->guard('companyStaff')->check())
-{{--                        <div class="name">{{Auth::id()}}</div>--}}
+                        {{--                        <div class="name">{{Auth::id()}}</div>--}}
 
                     @else
-{{--                        <div class="name">{{Auth::user()->username}}</div>--}}
+                        {{--                        <div class="name">{{Auth::user()->username}}</div>--}}
 
                     @endif
                     <div class="job">Web designer</div>
@@ -77,9 +77,9 @@
     </ul>
 
     @if(auth()->guard('companyStaff')->check())
-    <form id="logout-form" action="{{ route('company.logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
+        <form id="logout-form" action="{{ route('company.logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
 
     @else
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

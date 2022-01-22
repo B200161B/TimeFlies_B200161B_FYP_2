@@ -18,7 +18,7 @@ class CreateTaskHistoriesTable extends Migration
             $table->foreignId("tasks_id");
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

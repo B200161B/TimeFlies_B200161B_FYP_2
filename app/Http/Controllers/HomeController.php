@@ -22,11 +22,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+
     public function index()
     {
         $userId = auth()->id();
@@ -51,7 +47,18 @@ class HomeController extends Controller
             ->where('users_id', $userId)
             ->where('status', 'Doing')->first();
 
-        $doingTaskHistory = $doingTask->history;
+        if ($doingTask){
+            $doingTaskHistory = $doingTask->history[0];
+
+            return view('home', [
+                'workspaces' => $workspaces,
+                'projects' => $projects,
+                'tasks' => $tasks,
+                'events' => $events,
+                'reminders' => $reminders,
+                'doingTaskHistory'=>$doingTaskHistory,
+            ]);
+        }
 
         return view('home', [
             'workspaces' => $workspaces,
@@ -59,7 +66,8 @@ class HomeController extends Controller
             'tasks' => $tasks,
             'events' => $events,
             'reminders' => $reminders,
-            'doingTaskHistory'=>$doingTaskHistory,
         ]);
+
+
     }
 }
