@@ -14,7 +14,7 @@ class CompanyUserController extends Controller
         $companyId = Auth::guard('companyStaff')->user()->companies_id;
 
         $company = Company::query()
-            ->with('users')
+            ->with('companyUsers.user')
             ->find($companyId);
 
 //        dd($company);

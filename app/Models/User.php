@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'position'
     ];
 
     /**
@@ -42,14 +43,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tasks(){
-        return $this->hasMany(Tasks::class,'users_id');
+    public function tasks()
+    {
+        return $this->hasMany(Tasks::class, 'users_id');
     }
 
-    public function taskHistories(){
+    public function taskHistories()
+    {
         return $this->hasManyThrough(
-          TaskHistory::class,Tasks::class,
-            'users_id',''
+            TaskHistory::class, Tasks::class,
+            'users_id', ''
         );
     }
+
+
+    public function workspace()
+    {
+        return $this->belongsTo(WorkspaceUsers::class, 'id', 'users_id');
+    }
+
+
 }

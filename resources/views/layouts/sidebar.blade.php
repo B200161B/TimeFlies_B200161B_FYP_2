@@ -43,30 +43,33 @@
                 </a>
                 <span class="tooltip">Users</span>
             @endauth
-            @auth()
-                <a href="{{url('/home')}}">
+            @auth('web')
+                <a href="{{route('profile.index')}}">
                     <i class='bx bx-user'></i>
                     <span class="links_name">Users</span>
                 </a>
-                    <span class="tooltip">Users</span>
+                <span class="tooltip">Users</span>
             @endauth
         </li>
-        <li>
-            <a href="{{route('worktime.index')}}">
-                <i class='bx bx-chat'></i>
-                <span class="links_name">Work Time</span>
-            </a>
-            <span class="tooltip">Work Time</span>
-        </li>
 
+        @auth('web')
+            <li>
+                <a href="{{route('worktime.index')}}">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Work Time</span>
+                </a>
+                <span class="tooltip">Work Time</span>
+            </li>
 
-        <li>
-            <a href="{{route('file-management.index')}}">
-                <i class='bx bx-folder'></i>
-                <span class="links_name">File Manager</span>
-            </a>
-            <span class="tooltip">Files</span>
-        </li>
+            <li>
+                <a href="{{route('file-management.index',['leftDisk' => 'files'])}}">
+                    <i class='bx bx-folder'></i>
+                    <span class="links_name">File Manager</span>
+                </a>
+                <span class="tooltip">Files</span>
+            </li>
+        @endauth
+
 
 {{--        <li>--}}
 {{--            <a href="#">--}}

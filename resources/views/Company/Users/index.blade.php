@@ -24,17 +24,17 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-{{--                            <th scope="col">Status</th>--}}
+                            <th scope="col">Status</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        @foreach($company->users as $user)
+                        @foreach($company->companyUsers as $user)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-{{--                                <td>{{$user->pivot->status}}</td>--}}
+                                <td>{{$user->user->name}}</td>
+                                <td>{{$user->user->email}}</td>
+                                <td>{{$user->status}}</td>
                             </tr>
                         @endforeach
                         </tbody>

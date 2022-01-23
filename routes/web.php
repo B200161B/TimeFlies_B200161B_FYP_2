@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyUserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FileManagementController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\TaskController;
@@ -48,6 +49,13 @@ Route::group(['prefix' => 'project'], function () {
     Route::get('{projects_id}/changeWorkspace', [ProjectController::class, 'changeWorkspace'])->name('project.changeWorkspace');
     Route::get('{projects_id}/storeProject', [ProjectController::class, 'storeProject'])->name('project.storeProject');
     Route::get('{projects_id}/viewProjectTasks', [ProjectController::class, 'show'])->name('viewProjectTasks');
+});
+
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('reset-password', [ProfileController::class, 'resetPassword'])->name('profile.reset-password');
+    Route::put('{id}/', [ProfileController::class, 'update'])->name('profile.update');
+
 });
 
 Route::group(['prefix' => 'work-time'], function () {

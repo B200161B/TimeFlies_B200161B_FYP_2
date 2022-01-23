@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Company extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasRelationships;
 
     protected $primaryKey = 'id';
 
@@ -21,11 +23,12 @@ class Company extends Authenticatable
         'email'
     ];
 
-    public function users()
+    public function companyUsers()
     {
-        return $this->hasManyThrough(
-          User::class,CompanyUser::class,
-            'user_id','id'
+        return $this->hasMany(
+            CompanyUser::class
         );
     }
+
+
 }
