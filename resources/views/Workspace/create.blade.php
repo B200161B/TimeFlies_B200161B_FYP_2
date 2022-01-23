@@ -20,7 +20,7 @@
                 <input list="browsers" class="form-control" name="in_charged_by" id="users" autocomplete="off">
                 <datalist id="browsers">
                     @foreach($users as $user)
-                        <option value="{{$user->id}}">{{$user->name}}
+                        <option value="{{$user->id}}">{{$user->user->name}}
                     @endforeach
                 </datalist>
             </div>

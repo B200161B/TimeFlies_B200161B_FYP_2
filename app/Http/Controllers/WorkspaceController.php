@@ -39,10 +39,13 @@ class WorkspaceController extends Controller
         $companyId = Auth::guard('companyStaff')->user()->companies_id;
 
         $company = Company::query()
-            ->with('users')
+            ->with('companyUsers.user')
             ->find($companyId);
 
-        $users = $company->users;
+//
+        $users = $company->companyUsers;
+
+//        return response($users);
 
         return view('Workspace.create', compact('users'));
     }
