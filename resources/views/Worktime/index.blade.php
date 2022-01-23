@@ -52,7 +52,7 @@
                                     <td>{{$taskHistory->duration}}</td>
                                     <td>{{$taskHistory->task->user->name}}</td>
                                     @if(isset($taskHistory->note))
-                                        <td><textarea class="form-control" rows="3">{{ $taskHistory->note}}</textarea>
+                                        <td><textarea class="form-control" rows="3" readonly>{{ $taskHistory->note}}</textarea>
                                         </td>
                                     @else
                                         <td></td>
@@ -71,7 +71,7 @@
                                     <td>{{$taskHistory->end}}</td>
                                     <td>{{$taskHistory->duration}}</td>
                                     @if(isset($taskHistory->note))
-                                        <td> <textarea class="form-control" rows="3">{{ $taskHistory->note  }}</textarea></td>
+                                        <td> <textarea class="form-control" rows="3" readonly>{{ $taskHistory->note  }}</textarea></td>
                                     @else
                                         <td></td>
 
