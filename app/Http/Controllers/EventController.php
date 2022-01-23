@@ -19,22 +19,33 @@ class EventController extends Controller
     public function index()
     {
         //
+        $user_id = Auth::id();
         $tasks =Tasks::all();
         $workspaces =Workspaces::all();
         $projects = Projects::all();
-        $events = Events::all();
+        $today = date('Y-m-d');
+        $today = date_create($today);
+        $date = Events::query()
+            ->where('users_id',$user_id)
+            ->select('event.start_date');
+        $date = date_create($date);
+        $diff = date_diff($date,$today);
+        $events = Events::query()
+        ->where('users_id',$user_id);
+
         return view('home',[
             'tasks'=>$tasks,
             'workspaces'=>$workspaces,
             'projects'=>$projects,
             'events'=>$events,
+            'diff'=>$diff
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -46,7 +57,7 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {

@@ -289,17 +289,17 @@
 
                                     <div class="form-group">
                                         <label class="col  col-form-label">Event Name:</label>
-                                        <input type="text" class="form-control" name="eventName" id="eventName">
+                                        <input type="text" class="form-control" name="event_name" id="eventName">
                                         <label class="col  col-form-label">Start Date:</label>
-                                        <input type="date" name="startDate" id="startDate" class="form-control">
+                                        <input type="date" name="start_date" id="startDate" class="form-control">
                                         <label class="col  col-form-label">End Date:</label>
-                                        <input type="date" name="endDate" id="endDate" class="form-control">
+                                        <input type="date" name="end_date" id="endDate" class="form-control">
                                         <label class="col  col-form-label">Start Time:</label>
-                                        <input type="time" name="startTime" id="startTime" class="form-control">
+                                        <input type="time" name="start_time" id="startTime" class="form-control">
                                         <label class="col  col-form-label">End Time:</label>
-                                        <input type="time" name="endTime" id="endTime" class="form-control">
+                                        <input type="time" name="end_time" id="endTime" class="form-control">
                                         <label class="col  col-form-label">Remark:</label>
-                                        <textarea name="remark" id="remark" class="form-control"></textarea>
+                                        <textarea name="details" id="remark" class="form-control"></textarea>
                                     </div>
 
                                 </div>
@@ -324,14 +324,11 @@
                                     <div class="form-group">
                                         <label class="col  col-form-label">Reminder Me to:</label>
                                         <input type="text" class="form-control" name="purpose" id="purpose">
-                                        <label class="col  col-form-label">Start Date:</label>
-                                        <input type="date" name="startDate" id="startDate" class="form-control">
-                                        <label class="col  col-form-label">End Date:</label>
-                                        <input type="date" name="endDate" id="endDate" class="form-control">
-                                        <label class="col  col-form-label">Start Time:</label>
-                                        <input type="time" name="startTime" id="startTime" class="form-control">
-                                        <label class="col  col-form-label">End Time:</label>
-                                        <input type="time" name="endTime" id="endTime" class="form-control">
+                                        <label class="col  col-form-label">Date:</label>
+                                        <input type="date" name="date" id="startDate" class="form-control">
+                                        <label class="col  col-form-label">Time:</label>
+                                        <input type="time" name="time" id="startTime" class="form-control">
+
                                     </div>
 
                                 </div>
@@ -347,14 +344,13 @@
                 </div>
                 <div class="right-content">
                     <p>Today</p>
-
                     @foreach($events as $event)
                         <a href="{{ route('event.edit',[$event->id]) }}">
-                            @if($event->StartDate == date('Y-m-d') )
+                            @if($event->duration==0)
                                 <div class="task-box yellow">
                                     <div class="description-task">
-                                        <div class="time">{{$event->StartTime}} - {{$event->EndTime}}</div>
-                                        <div class="task-name">{{$event->eventName}}</div>
+                                        <div class="time">{{$event->start_time}} - {{$event->end_time}}</div>
+                                        <div class="task-name">{{$event->event_name}}</div>
 
                                     </div>
                                 </div>
@@ -364,10 +360,10 @@
                     @endforeach
                     @foreach($reminders as $reminder)
                         <a href="{{ route('reminder.edit',[$reminder->id]) }}">
-                            @if($reminder->StartDate == date('Y-m-d') )
+                            @if($reminder->duration==0)
                                 <div class="task-box red">
                                     <div class="description-task">
-                                        <div class="time">{{$reminder->StartTime}} - {{$reminder->EndTime}}</div>
+                                        <div class="time">{{$reminder->time}}</div>
                                         <div class="task-name">{{$reminder->purpose}}</div>
                                     </div>
                                 </div>
@@ -376,25 +372,56 @@
                         </a>
                     @endforeach
                     <p>Tomorrow</p>
-
                     @foreach($events as $event)
                         <a href="{{ route('event.edit',[$event->id]) }}">
-                            @if(now()->addDays()->toDateString() == \Carbon\Carbon::parse($event->StartDate)->toDateString())
+                            @if($event->duration==1)
                                 <div class="task-box yellow">
                                     <div class="description-task">
-                                        <div class="time">{{$event->StartTime}} - {{$event->EndTime}}</div>
-                                        <div class="task-name">{{$event->eventName}}</div>
+                                        <div class="time">{{$event->start_time}} - {{$event->end_time}}</div>
+                                        <div class="task-name">{{$event->event_name}}</div>
+
                                     </div>
                                 </div>
+
                             @endif
                         </a>
                     @endforeach
                     @foreach($reminders as $reminder)
                         <a href="{{ route('reminder.edit',[$reminder->id]) }}">
-                            @if(now()->addDays()->toDateString() == \Carbon\Carbon::parse($reminder->StartDate)->toDateString())
+                            @if($reminder->duration==1)
                                 <div class="task-box red">
                                     <div class="description-task">
-                                        <div class="time">{{$reminder->StartTime}} - {{$reminder->EndTime}}</div>
+                                        <div class="time">{{$reminder->time}}</div>
+                                        <div class="task-name">{{$reminder->purpose}}</div>
+                                    </div>
+                                </div>
+
+                            @endif
+                        </a>
+                    @endforeach
+                    <p>Following...</p>
+                    @foreach($events as $event)
+                        <a href="{{ route('event.edit',[$event->id]) }}">
+                            @if($event->duration > 1)
+                                <div class="task-box yellow">
+                                    <div class="description-task">
+                                        <div class="date">{{$event->start_date}} - {{$event->end_date}}</div>
+                                        <div class="time">{{$event->start_time}} - {{$event->end_time}}</div>
+                                        <div class="task-name">{{$event->event_name}}</div>
+
+                                    </div>
+                                </div>
+
+                            @endif
+                        </a>
+                    @endforeach
+                    @foreach($reminders as $reminder)
+                        <a href="{{ route('reminder.edit',[$reminder->id]) }}">
+                            @if($reminder->duration > 1)
+                                <div class="task-box red">
+                                    <div class="description-task">
+                                        <div class="date">{{$reminder->date}}</div>
+                                        <div class="time">{{$reminder->time}}</div>
                                         <div class="task-name">{{$reminder->purpose}}</div>
                                     </div>
                                 </div>

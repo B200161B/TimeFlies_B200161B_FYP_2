@@ -8,6 +8,7 @@ use App\Models\Reminders;
 use App\Models\TaskHistory;
 use App\Models\Tasks;
 use App\Models\Workspaces;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,8 +27,6 @@ class HomeController extends Controller
     public function index()
     {
         $userId = auth()->id();
-
-
         $workspaces = Workspaces::all();
         $projects = Projects::all();
 
@@ -36,8 +35,26 @@ class HomeController extends Controller
             ->where('users_id', $userId)
             ->get();
 
-        $events = Events::all();
-        $reminders = Reminders::all();
+        $events = Events::query()
+            ->where('users_id', $userId)->get();
+        foreach ($events as $event) {
+
+            $start = Carbon::parse($event->start_date);
+            $end = now()->toDateString();
+            $event->duration = $start->diff($end)->format('%d');;
+        }
+
+//        return response()->json($events);
+
+        $reminders = Reminders::query()
+        ->where('users_id',$userId)
+        ->get();
+        foreach ($reminders as $reminder){
+            $start = Carbon::parse($reminder->date);
+            $end = now()->toDateString();
+            $reminder->duration = $start->diff($end)->format('%d');;
+        }
+
 
 
         $doingTask = Tasks::query()
@@ -47,7 +64,7 @@ class HomeController extends Controller
             ->where('users_id', $userId)
             ->where('status', 'Doing')->first();
 
-        if ($doingTask){
+        if ($doingTask) {
             $doingTaskHistory = $doingTask->history[0];
 
             return view('home', [
@@ -56,7 +73,9 @@ class HomeController extends Controller
                 'tasks' => $tasks,
                 'events' => $events,
                 'reminders' => $reminders,
-                'doingTaskHistory'=>$doingTaskHistory,
+                'doingTaskHistory' => $doingTaskHistory,
+//                'dateString' =>$dateString,
+
             ]);
         }
 
@@ -66,6 +85,7 @@ class HomeController extends Controller
             'tasks' => $tasks,
             'events' => $events,
             'reminders' => $reminders,
+//            'dateString' =>$dateString,
         ]);
 
 

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-5 m-5">
-        <form action="/event" method="POST">
+        <form action="{{route('event.store'}}" method="POST">
             @csrf
             <div class="modal-body">
 
