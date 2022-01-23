@@ -248,14 +248,17 @@
                     </div>
                 </div>
                 <div class="row" id="allTasks">
-
                     @foreach($projects as $project)
                         <div class="col-3">
                             <a href="{{ route('project.edit',[$project->id]) }}">
                                 <div class="box">
                                     <div class="box-content">
                                         {{$project->project_name}}
-                                        <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">Add Workspace</a></button>
+                                        @if($project->workspace)
+                                            <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">{{$project->workspace->workspace_name}}</a></button>
+                                        @else
+                                            <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">Add Workspace</a></button>
+                                        @endif
                                         <br>
                                         Due Date:{{$project->due_date}}
                                     </div>

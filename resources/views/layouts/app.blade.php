@@ -30,6 +30,13 @@
 
 
     <style>
+        .btn-secondary{
+            background-color: whitesmoke;
+            color: #0c1021;
+        }
+        .btn-secondary:hover{
+            background-color: #0c1021;
+        }
         #plus {
             margin: -1% 0 0;
         }
@@ -339,6 +346,18 @@
             text-align: left;
             font-size: small;
         }
+        a{
+            color: whitesmoke;
+        }
+        a:hover{
+            color: whitesmoke;
+        }
+        .card{
+            background-color: #272c4a;
+            color: whitesmoke;
+
+        }
+
 
     </style>
     @stack('css')

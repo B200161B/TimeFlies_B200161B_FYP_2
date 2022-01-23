@@ -1,73 +1,54 @@
 @extends('layouts.app')
 @push('css')
     <style>
-        .home-section {
-            padding: 1%;
-        }
-
-        span {
-            white-space: pre;
-
-        }
-        #allTasks {
-            margin-left: 5%;
-        }
-
-        html {
-            overflow-y: scroll;
-        }
-        .box {
-            width: 100%;
-            height: 100px;
-            background-color: #272c4a;
-            margin-left: 10px;
-            margin-bottom: 2%;
-            margin-right: 3%;
-            padding: 10px;
+        .btnCreate {
+            background: #272c4a;
             color: whitesmoke;
-            border-radius: .30rem;
-            text-align: center;
-            box-sizing: content-box;
-        }
-
-        .box-content {
-            text-align: left;
-            font-size: small;
+            right: 77%;
+            display: inline-block;
         }
     </style>
 @endpush
 @section('content')
     <section class="home-section">
-        <div class="container-fluid m-5">
-            <div class="row">
-                <div class="col">
-                    <h2>Workspace</h2>
-                    <button class="btn btn-secondary"><a href="{{route('workspace.create')}}">Create</a></button>
+        <div class="row">
+            <div class="col">
+                <div class="text">Workspace
+                    <button class="btn btnCreate"><a href="{{route('workspace.create')}}">Create</a></button>
                 </div>
 
             </div>
 
-            <div class="row" id="allTasks">
+        </div>
 
+        <div class="container-fluid">
+            <div class="row">
                 @foreach($workspaces as $workspace)
-                    <div class="col-3">
-                            <div class="box">
-                                <div class="box-content">
-                                    <a href="{{route('workspace.show',$workspace->id)}}">{{$workspace->workspace_name}}</a>
-                                    <button class="btn btn-secondary"><a href="{{route('workspace.edit',$workspace->id)}}">Edit</a></button>
-                                    <button class="btn btn-secondary"><a href="{{route('workspace.addUser',$workspace->id)}}">Add Employee</a></button>
-                                    <form action="{{route('workspace.destroy',$workspace->id)}}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form> <br>
-                                    In Charge By:{{$workspace->inChargePerson->name}}
-                                </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{{route('workspace.show',$workspace->id)}}">
+                                    <h5 class="card-title">{{$workspace->workspace_name}}</h5></a>
+                                <p class="card-text">In Charge By:{{$workspace->inChargePerson->name}}</p>
+
+                                <a class="btn btn-secondary" href="{{route('workspace.edit',$workspace->id)}}">Edit</a>
+                                <a class="btn btn-secondary"
+                                   href="{{route('workspace.addUser',$workspace->id)}}">Add Employee
+                                </a>
+                                <form style="display:inline" action="{{route('workspace.destroy',$workspace->id)}}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+
                             </div>
+                        </div>
                     </div>
                 @endforeach
+
             </div>
         </div>
+
 
     </section>
 @endsection

@@ -10,13 +10,13 @@
             <input type="text" placeholder="Search...">
             <span class="tooltip">Search</span>
         </li>
-        <li>
-            <a href="#">
-                <i class='bx bx-pie-chart-alt-2'></i>
-                <span class="links_name">Analytics</span>
-            </a>
-            <span class="tooltip">Analytics</span>
-        </li>
+{{--        <li>--}}
+{{--            <a href="#">--}}
+{{--                <i class='bx bx-pie-chart-alt-2'></i>--}}
+{{--                <span class="links_name">Analytics</span>--}}
+{{--            </a>--}}
+{{--            <span class="tooltip">Analytics</span>--}}
+{{--        </li>--}}
         <li>
             @auth('companyStaff')
                 <a href="{{url('Company/home')}}">
@@ -68,15 +68,15 @@
             <span class="tooltip">Files</span>
         </li>
 
-        <li>
-            <a href="#">
-                <i class='bx bx-cog'></i>@php
+{{--        <li>--}}
+{{--            <a href="#">--}}
+{{--                <i class='bx bx-cog'></i>@php--}}
 
-                    @endphp
-                <span class="links_name">Setting</span>
-            </a>
-            <span class="tooltip">Setting</span>
-        </li>
+{{--                    @endphp--}}
+{{--                <span class="links_name">Setting</span>--}}
+{{--            </a>--}}
+{{--            <span class="tooltip">Setting</span>--}}
+{{--        </li>--}}
         <li class="profile">
             <div class="profile-details">
                 <img src="{{asset('images/profile.jpg')}}" alt="profileImg">

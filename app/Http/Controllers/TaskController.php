@@ -204,6 +204,15 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         //
+//        dd($request->input('status'));
+        $status = $request->input('status');
+        if($status==null)
+        {
+            $status = Tasks::query()
+                ->find($id)
+                ->status;
+        }
+
         $task = Tasks::where('id', $id)
             ->update([
                 'task_name' => $request->input('task_name'),
@@ -211,7 +220,7 @@ class TaskController extends Controller
                 'details' => $request->input('details'),
                 'users_id' => Auth::id(),
                 'projects_id' => $request->input('projects_id'),
-                'status' => $request->input('status'),
+                'status' => $status,
                 'attachmentFiles' => $request->input('attachmentFiles')
             ]);
         return redirect('/home');

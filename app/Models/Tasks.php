@@ -50,4 +50,14 @@ class   Tasks extends Model
     {
         return $this->hasMany(TaskHistory::class);
     }
+
+    public function project(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Projects::class,'projects_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'users_id');
+    }
+
 }

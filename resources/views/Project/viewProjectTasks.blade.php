@@ -38,32 +38,31 @@
 @endpush
 @section('content')
     <section class="home-section">
-        <div class="row col-10 ">
+        <div class="modal-body">
             <h1>Tasks In {{$projects->project_name}}</h1>
-            <div class="row col-10 ">
             <h3>Created By
                 {{$projects->createdBy->name}}</h3>
-            </div>
+            <div class="container-fluid">
+                <div class="row">
             @foreach($projects->task as $task)
-
-                <div class="row" id="allTasks">
-                    <div class="col-3">
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-body">
                         <a href="{{route('task.show',$task->id)}}">
-                            <div class="box">
-                                <div class="box-content">
-                                    <h2>{{$task->task_name}}</h2>
+                                    <h2>{{$task->task_name}}</h2> </a>
                                     <button class="btn btn-secondary"><a href="{{route('project.editProjectWorkspace',$task->projects_id)}}">Change Workspace</a></button>
                                     <button class="btn btn-secondary"><a href="{{route('task.add-users',$task->id)}}">Add Users</a></button>
                                     <br>
                                     Due Date:{{$task->due_date}}
                                 </div>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
 
+                    </div>
+
+            @endforeach
+                </div>
+        </div>
+        </div>
 
 
     </section>

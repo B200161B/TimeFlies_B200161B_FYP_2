@@ -15,7 +15,7 @@
                 <label class="col  col-form-label">Details</label>
                 <textarea class="form-control" rows="4" cols="50" name="details" placeholder="Write your details here...">{{$task->details}}</textarea>
                 <label class="col-form-label">Status:</label>
-                <select class="form-select" name="status" >
+                <select class="form-select" name="status"  >
                     <option selected disabled hidden>{{$task->status}}</option>
                     <option value="Plan">Plan</option>
                     <option value="Doing">Doing</option>

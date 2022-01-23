@@ -23,22 +23,12 @@ class EventController extends Controller
         $tasks =Tasks::all();
         $workspaces =Workspaces::all();
         $projects = Projects::all();
-        $today = date('Y-m-d');
-        $today = date_create($today);
-        $date = Events::query()
-            ->where('users_id',$user_id)
-            ->select('event.start_date');
-        $date = date_create($date);
-        $diff = date_diff($date,$today);
-        $events = Events::query()
-        ->where('users_id',$user_id);
 
         return view('home',[
             'tasks'=>$tasks,
             'workspaces'=>$workspaces,
             'projects'=>$projects,
-            'events'=>$events,
-            'diff'=>$diff
+
         ]);
     }
 

@@ -1,12 +1,17 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        .btn-secondary{
+            background-color: #0c1021;
+        }
+    </style>
+@endpush
 @section('content')
-    <div class="p-5 m-5">
+    <section class="home-section">
     <form action="{{ route('workspace.store') }}" method="POST">
         @csrf
-
         <div class="modal-body">
-
+            <h1>Create Workspace</h1>
             <div class="form-group">
                 <label class="col  col-form-label">Workspace Name</label>
                 <input type="text" class="form-control" name="workspace_name">
@@ -18,17 +23,12 @@
                         <option value="{{$user->id}}">{{$user->name}}
                     @endforeach
                 </datalist>
-
-
-
             </div>
+            <button type="button" class="btn float-right btn-secondary" id="close"><a href="{{ url()->previous() }}">Close</a></button>
+            <button type="submit" class="btn float-right btn-primary mr-1" name="form_add_workspace">Add</button>
 
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" name="form_add_workspace">Add</button>
-            <button type="button" class="btn btn-secondary" id="close"><a href="{{ url()->previous() }}">Close</a></button>
         </div>
     </form>
-    </div>
+    </section>>
 
 @endsection

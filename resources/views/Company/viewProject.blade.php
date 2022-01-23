@@ -38,34 +38,27 @@
 @endpush
 @section('content')
     <section class="home-section">
-            <div class="row col-10 ">
+         <div class="modal-body">
                 <h1>Projects In {{$workspace->workspace_name}}</h1>
-                <div class="row col-10 ">
-                    <h3>In Charged By
+                <h3>In Charged By
                     {{$workspace->inChargePerson->name}}</h3>
-                </div>
-
+             <div class="container-fluid">
+                 <div class="row">
                 @foreach($workspace->projects as $project)
-
-                    <div class="row" id="allTasks">
-                        <div class="col-3">
-
+                         <div class="col-4">
+                             <div class="card">
+                                 <div class="card-body">
                             <a href="{{ route('project.show', $project->projectInfo->id) }}">
-                                <div class="box">
-                                    <div class="box-content">
-                                        {{$project->projectInfo->project_name}}
-                                        <button class="btn btn-secondary"><a href="{{route('project.editProjectWorkspace',$project->projectInfo->id)}}">Change Workspace</a></button>
-                                        <br>
-                                        Due Date:{{$project->projectInfo->due_date}}
+                                        {{$project->projectInfo->project_name}}</a>
+                                     <p class="card-text"> Due Date:{{$project->projectInfo->due_date}}</p>
+                                       <a class="btn btn-secondary" href="{{route('project.editProjectWorkspace',$project->projectInfo->id)}}">Change Workspace</a>
                                     </div>
                                 </div>
-                            </a>
                         </div>
-                    </div>
+
                 @endforeach
             </div>
-
-
-
+             </div>
+         </div>
     </section>
 @endsection
