@@ -31,7 +31,7 @@ class WorktimeController extends Controller
             $start = Carbon::parse($history->start);
             $end = Carbon::parse($history->end);
 
-            $history->duration = $start->diff($end)->format('%d days %H hours %i minutes');
+            $history->duration = $start->diff($end)->format('%d days %H hours %i minutes %s seconds');
 
 
         }

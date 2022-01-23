@@ -25,6 +25,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
     <link rel=”stylesheet” href="{{asset('css/select.css')}}" />
 
 
@@ -368,6 +369,7 @@
 
 
 <!-- Scripts -->
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/easytimer.min.js') }}"></script>
 <script src="{{ asset('js/moment.min.js') }}"></script>

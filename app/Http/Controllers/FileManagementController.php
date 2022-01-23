@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tasks;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FileManagementController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $files = Storage::allfiles('files/1');
+
+        $fileLocation = 'files/1';
+
+        $files = File::files($fileLocation);
+
+
 
 //        dd($files);
 
-        return view('FileManagement.index',compact('files'));
+        return view('FileManagement.index', compact('files'));
     }
 }

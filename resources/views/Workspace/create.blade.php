@@ -12,7 +12,7 @@
                 <input type="text" class="form-control" name="workspace_name">
                 <label class="col  col-form-label">In Charged By</label>
 
-                <input list="browsers" name="in_charged_by" id="users" autocomplete="off">
+                <input list="browsers" class="form-control" name="in_charged_by" id="users" autocomplete="off">
                 <datalist id="browsers">
                     @foreach($users as $user)
                         <option value="{{$user->id}}">{{$user->name}}

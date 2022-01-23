@@ -38,10 +38,13 @@
 @endpush
 @section('content')
     <section class="home-section">
-        <div class="m-5">
-            <div class="row col-10 ">
-                <h2>Workspace</h2>
-                <button class="btn btn-secondary"><a href="{{route('workspace.create')}}">Create</a></button>
+        <div class="container-fluid m-5">
+            <div class="row">
+                <div class="col">
+                    <h2>Workspace</h2>
+                    <button class="btn btn-secondary"><a href="{{route('workspace.create')}}">Create</a></button>
+                </div>
+
             </div>
 
             <div class="row" id="allTasks">

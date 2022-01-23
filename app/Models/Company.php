@@ -11,11 +11,21 @@ use Laravel\Sanctum\HasApiTokens;
 class Company extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $primaryKey ='id';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'company_name',
         'address',
         'phone_number',
         'email'
-        ];
+    ];
+
+    public function users()
+    {
+        return $this->hasManyThrough(
+          User::class,CompanyUser::class,
+            'user_id','id'
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Events;
 use App\Models\Projects;
 use App\Models\Tasks;
@@ -10,6 +11,7 @@ use App\Models\WorkspaceProject;
 use App\Models\Workspaces;
 use App\Models\WorkspaceUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WorkspaceController extends Controller
@@ -43,15 +45,39 @@ class WorkspaceController extends Controller
      */
     public function create()
     {
-        //
-        $users = User::all();
-        return view('Workspace.create')->with('users',$users);
+        $companyId = Auth::guard('companyStaff')->user()->companies_id;
+
+        $company = Company::query()
+        ->with('users')
+        ->find($companyId);
+
+        $users = $company->users;
+
+        return view('Workspace.create',compact('users'));
     }
     public function addUser($id)
     {
-        $users=User::all();
-        $workspace = Workspaces::find($id);
-        return view('Workspace.addUser')->with('workspace',$workspace)->with('users',$users);
+        $companyId = Auth::guard('companyStaff')->user()->companies_id;
+
+        $company = Company::query()
+            ->with('users')
+            ->find($companyId);
+
+        $users = $company->users;
+
+
+
+        $workspace = Workspaces::query()
+        ->with('workspaceusers.user')
+        ->find($id);
+
+        $currentWorkspaceUser = $workspace->workspaceusers;
+
+//        return response(compact('currentWorkspaceUser','users'));
+
+//        return response($currentWorkspaceUser);
+
+        return view('Workspace.addUser',compact('workspace','users','currentWorkspaceUser'));
     }
     public function storeUser(Request $request,$id)
     {
@@ -129,8 +155,11 @@ class WorkspaceController extends Controller
         //
         $users = User::all();
         $workspace = Workspaces::find($id)
+            ->with('inChargePerson')
             ->where('id', $id)
             ->first();
+
+//        return response($workspace);
 
         return view('Workspace.edit')->with('workspace',$workspace)->with('users',$users);
     }
