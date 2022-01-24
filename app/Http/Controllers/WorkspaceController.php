@@ -42,6 +42,8 @@ class WorkspaceController extends Controller
             ->with('companyUsers.user')
             ->find($companyId);
 
+
+//        return response($company);
 //
         $users = $company->companyUsers;
 

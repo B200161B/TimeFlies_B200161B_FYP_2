@@ -7,6 +7,7 @@ use App\Models\Projects;
 use App\Models\Reminders;
 use App\Models\TaskHistory;
 use App\Models\Tasks;
+use App\Models\User;
 use App\Models\Workspaces;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,15 @@ class HomeController extends Controller
     {
         $userId = auth()->id();
         $workspaces = Workspaces::all();
-        $projects = Projects::all();
+//        $projects = Projects::all();
+
+        $projects = User::query()
+            ->with('projects')
+            ->find($userId)
+        ->projects;
+
+
+//        return response($projects);
 
         //Filter Tasks that belong to user
         $tasks = Tasks::query()

@@ -25,6 +25,8 @@ class CompanyController extends Controller
 //        admin@Test1.com
     //        evVy1tmc
 
+
+//        return response($workspaces);
         return view('Company.home',[
         'workspaces'=>$workspaces
         ]);
