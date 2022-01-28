@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @push('css')
-
+    <style>
+        .btn-secondary {
+            background-color: whitesmoke;
+            color: #272c4a;
+        }
+        .yellow{
+            color:#272c4a ;
+        }
+        .red{
+            color: #272c4a;
+        }
+    </style>
 @endpush
 @section('content')
     <section class="home-section">
@@ -210,7 +221,28 @@
                     </div>
 
                 </div>
+                <div class="text">You should do this tasks first!</div>
+                <div class="row" id="allTasks">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($task_priority as $task)
+                        <tr>
+                            <td>{{$task->task_name}}</td>
+                            <td>{{$task->due_date}}</td>
+                            <td>{{$task->details}}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
 
+                    </table>
+                </div>
                 <div class="text">Projects</div>
                 <button class="btn btnCreate modal-button" href="#myModal2" type="button">Create</button>
                 <button class="btn btnRemove modal-button" type="button">Remove</button>
@@ -255,9 +287,9 @@
                                     <div class="box-content">
                                         {{$project->project_name}}
                                         @if($project->workspace)
-                                            <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">{{$project->workspace->workspace_name}}</a></button>
+                                            <a class="btn btn-secondary" href="{{route('project.addProject',$project->id)}}">{{$project->workspace->workspace_name}}</a>
                                         @else
-                                            <button class="btn btn-secondary"><a href="{{route('project.addProject',$project->id)}}">Add Workspace</a></button>
+                                            <a class="btn btn-secondary" href="{{route('project.addProject',$project->id)}}">Add Workspace</a>
                                         @endif
                                         <br>
                                         Due Date:{{$project->due_date}}

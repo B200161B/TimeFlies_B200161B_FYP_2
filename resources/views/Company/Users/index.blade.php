@@ -1,25 +1,28 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+       thead{
+            background-color: #272c4a;
+            color: whitesmoke;
+        }
+    </style>
+@endpush
 @push('css')
 
 @endpush
 @section('content')
-
     <section class="home-section">
-
+        <div class="modal-body">
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                    <h1><b>Users List</b></h1>
+                    <h1>Users List</h1>
                 </div>
-
             </div>
-
-            <div class="row pt-5">
+            <div class="row">
                 <div class="col">
-
                     <table class="table">
-                        <thead class="thead-dark">
+                        <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
@@ -42,6 +45,7 @@
                 </div>
             </div>
 
+        </div>
         </div>
     </section>
 

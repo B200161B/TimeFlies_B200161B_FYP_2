@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        .card {
+            background-color: white;
+            color: black;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

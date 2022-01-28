@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\CompanyStaff;
+use App\Models\User;
 use App\Models\Workspaces;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class CompanyController extends Controller
         $workspaces = Workspaces::query()
         ->with('inChargePerson')
         ->get();
+
 //        admin@Test1.com
     //        evVy1tmc
 

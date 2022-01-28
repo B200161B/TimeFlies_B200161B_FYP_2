@@ -16,7 +16,7 @@ class Workspaces extends Model
 
     public function inChargePerson(): HasOne
     {
-        return $this->hasOne(User::class,'id');
+        return $this->hasOne(User::class,'id','in_charged_by');
     }
 
     public function workspaceusers(): HasMany

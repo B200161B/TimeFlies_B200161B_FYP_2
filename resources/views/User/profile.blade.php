@@ -5,6 +5,10 @@
         .modal-backdrop {
             z-index: 0 !important;
         }
+        .card {
+            background-color: white;
+            color: black;
+        }
     </style>
 @endpush
 
@@ -17,15 +21,12 @@
 
             <div class="row">
                 <div class="col">
-                    <h1><b>User Profile</b></h1>
+                    <h1>User Profile</h1>
                 </div>
 
             </div>
-
-
             <div class="row pt-5">
                 <div class="col-6">
-
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row">

@@ -137,7 +137,6 @@ class TaskController extends Controller
         $tasks = Tasks::query()
             ->with(['createdBy','taskUser.addedUsers'])
             ->find($id);
-
         return view('Task.show')->with('tasks',$tasks);
 
     }

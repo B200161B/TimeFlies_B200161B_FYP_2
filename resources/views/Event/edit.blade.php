@@ -1,7 +1,14 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        .btn-secondary {
+            background-color: #272c4a;
+            color: whitesmoke;
+        }
+    </style>
+@endpush
 @section('content')
-    <div class="p-5 m-5">
+    <section class="home-section">
     <form action="/event/{{$event->id}}" method="POST">
         @csrf
         @method('PUT')
@@ -21,13 +28,10 @@
                 <label class="col  col-form-label">Details</label>
                 <textarea class="form-control" rows="4" cols="50" name="details" placeholder="Write your details here...">{{$event->details}}</textarea>
             </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" >Update</button>
-            <button type="button" class="btn btn-secondary" id="close"><a href="{{ url()->previous() }}">Close</a></button>
+            <button type="button" class="btn float-right btn-secondary" id="close"><a href="{{ url()->previous() }}">Close</a></button>
+            <button type="submit" class="btn float-right btn-primary mr-1" >Update</button>
         </div>
     </form>
-    </div>
+    </section>
 
 @endsection

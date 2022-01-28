@@ -13,14 +13,14 @@
                         @csrf
                         @method('GET')
                         <div class="modal-body">
-                            <h1>Create Workspace</h1>
+                            <h1>Add User to Workspace</h1>
                             <div class="form-group">
                                 <label class="col col-form-label">Workspace Name: {{$workspace->workspace_name}}</label>
                                 <label class="col col-form-label">Employee ID:</label>
                                     <input type="text" class="form-control" list="browsers" name="users_id" id="users" autocomplete="off">
                                     <datalist id="browsers">
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name }}</option>
+                                            <option value="{{$user->id}}">{{$user->name}}
                                         @endforeach
                                     </datalist>
                             </div>

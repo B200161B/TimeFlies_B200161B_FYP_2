@@ -43,7 +43,10 @@ class HomeController extends Controller
         $tasks = Tasks::query()
             ->where('users_id', $userId)
             ->get();
-
+        $task_priority = Tasks::query()
+            ->where('users_id', $userId)
+            ->orderBy('due_date')
+            ->get();
         $events = Events::query()
             ->where('users_id', $userId)->get();
         foreach ($events as $event) {
@@ -83,6 +86,7 @@ class HomeController extends Controller
                 'events' => $events,
                 'reminders' => $reminders,
                 'doingTaskHistory' => $doingTaskHistory,
+                'task_priority'=>$task_priority
 //                'dateString' =>$dateString,
 
             ]);
@@ -94,6 +98,7 @@ class HomeController extends Controller
             'tasks' => $tasks,
             'events' => $events,
             'reminders' => $reminders,
+            'task_priority'=>$task_priority
 //            'dateString' =>$dateString,
         ]);
 

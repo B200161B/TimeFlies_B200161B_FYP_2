@@ -52,6 +52,15 @@
             @endauth
         </li>
 
+        @auth('companyStaff')
+            <li>
+                <a href="{{route('worktime.index')}}">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Work Time</span>
+                </a>
+                <span class="tooltip">Work Time</span>
+            </li>
+        @endauth
         @auth('web')
             <li>
                 <a href="{{route('worktime.index')}}">
@@ -60,7 +69,8 @@
                 </a>
                 <span class="tooltip">Work Time</span>
             </li>
-
+        @endauth
+            @auth('web')
             <li>
                 <a href="{{route('file-management.index',['leftDisk' => 'files'])}}">
                     <i class='bx bx-folder'></i>
